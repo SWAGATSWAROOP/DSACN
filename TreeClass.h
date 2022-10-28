@@ -11,7 +11,11 @@ class TreeNode{
         this->data = data;
     }
 
-    ~TreeNode  
+    ~TreeNode(){
+        for(int i=0;i<root->children.size();i++){
+            delete root->children[i];
+        }
+    }  
 };
 
 TreeNode<int>* takeinput(){

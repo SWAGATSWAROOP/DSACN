@@ -55,10 +55,7 @@ class Trie {
 
     bool searchword(TrieNode* root,string word){
         if(word.length()==0){
-            if(root->isTerminal){
-                return true;
-            }
-            return false;
+            return root->isTerminal;
         }
         int index = word[0] - 'a'; 
         if(root->children[index] == NULL){

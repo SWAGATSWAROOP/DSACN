@@ -80,3 +80,24 @@ int countMinStepsToOne(int n)
 }
 
 //Dynamic Programing
+#include <climits>
+int countStepsToOne(int n)
+{
+	int arr[n+1];
+	arr[1] = 0;
+	arr[2] = 1;
+	arr[3] = 1;
+	for(int i=4;i<=n;i++){
+		int l = INT_MAX;
+		int k = INT_MAX;
+		if(i%3==0){
+			l = arr[i/3];
+		}
+		else if(i%2==0){
+			k = arr[i/2];
+		}
+		int m = arr[i-1];
+		arr[i] = min(k,min(m,l))+1;
+	}
+	return arr[n];
+}

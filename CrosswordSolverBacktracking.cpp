@@ -20,7 +20,7 @@
 // +A++L+++++
 // +D++A+++++
 // +A++V+++++
-// ++++I+++++
+// i+++++++++
 // ++++V+++++
 // ++++++++++
 // CALIFORNIA
@@ -53,7 +53,7 @@
 // +A++L+++++
 // +D++A+++++
 // +A++V+++++
-// ++++I+++++
+// i+++++++++
 // ++++V+++++
 // ++++++++++
 // CALIFORNIA
@@ -67,7 +67,7 @@ bool isValidHorizontal(int row, int col, string word) {
   if (10 - col < word.length())
     return false;
 
-  for (int i = 0, j = col; i < word.length(); ++i, j++) {
+  for (int i = 0, j = col; i < word.length(); i++, j++) {
     if (crossWord[row][j] != '-' && crossWord[row][j] != word[i]) {
       return false;
     }
@@ -81,7 +81,7 @@ bool isValidVertical(int row, int col, string word) {
   if (10 - row < word.length())
     return false;
 
-  for (int i = row, j = 0; j < word.length(); ++i, j++) {
+  for (int i = row, j = 0; j < word.length(); i++, j++) {
     if (crossWord[i][col] != '-' && crossWord[i][col] != word[j]) {
       return false;
     }
@@ -92,7 +92,7 @@ bool isValidVertical(int row, int col, string word) {
 
 void setHorizontal(int row, int col, string word, bool state[]) {
 
-  for (int i = 0, j = col; i < word.size(); ++i, j++) {
+  for (int i = 0, j = col; i < word.size(); i++, j++) {
     if (crossWord[row][j] != '+') {
 
       if (crossWord[row][j] == word[i])
@@ -106,7 +106,7 @@ void setHorizontal(int row, int col, string word, bool state[]) {
 
 void setVertical(int row, int col, string word, bool state[]) {
 
-  for (int i = 0, j = row; i < word.size(); ++i, j++) {
+  for (int i = 0, j = row; i < word.size(); i++, j++) {
     if (crossWord[j][col] != '+') {
 
       if (crossWord[j][col] == word[i])
@@ -120,7 +120,7 @@ void setVertical(int row, int col, string word, bool state[]) {
 
 void resetHorizontal(int row, int col, bool state[], int size) {
 
-  for (int i = 0, j = col; i < size; ++i, j++) {
+  for (int i = 0, j = col; i < size; i++, j++) {
     if (state[i] == true)
       crossWord[row][j] = '-';
   }
@@ -129,7 +129,7 @@ void resetHorizontal(int row, int col, bool state[], int size) {
 
 void resetVertical(int row, int col, bool state[], int size) {
 
-  for (int i = 0, j = row; i < size; ++i, j++) {
+  for (int i = 0, j = row; i < size; i++, j++) {
     if (state[i] == true)
       crossWord[j][col] = '-';
   }
@@ -206,7 +206,7 @@ int main() {
   char ch;
   string word = "";
   int a = 0;
-  for (int i = 0; s[i] != '\0'; ++i) {
+  for (int i = 0; s[i] != '\0'; i++) {
 
     if (s[i] == ';') {
       input[a++] = word;

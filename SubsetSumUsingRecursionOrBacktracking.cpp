@@ -37,7 +37,8 @@
 // 30
 // 4
 
-#include<bits/stdc++.h>
+#include<iostream>
+#include<vector>
 using namespace std;
 
 int countno(vector<int> v,int index,int y){

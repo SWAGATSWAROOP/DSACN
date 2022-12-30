@@ -64,7 +64,7 @@ int minCostPath(int **input, int m, int n)
 }
 
 
-//Memotization
+//Memotization Myself
 #include <climits>
 int mcp(int **input, int m, int n,int** arr,int i,int j){
 	if(i == m-1 && j == n-1){
@@ -102,7 +102,6 @@ int mcp(int **input, int m, int n,int** arr,int i,int j){
 	return arr[i][j];
 }
 
-
 int minCostPath(int **input, int m, int n) {
   int *arr[m];
   for (int i = 0; i < m; i++) {
@@ -113,6 +112,36 @@ int minCostPath(int **input, int m, int n) {
   }
   return mcp(input, m, n, arr, 0, 0);
 }
+
+//Memotization By tutor
+int minCostPath_Mem(int **input, int m, int n, int i, int j, int **output) {
+    if(i == m- 1 && j == n- 1) {
+        return input[i][j];
+    }
+    
+    if(i >= m || j >= n) {
+        return INT_MAX;
+    }
+    
+    // Check if ans already exists
+    if(output[i][j] != -1) {
+        return output[i][j];
+    }
+    
+    // Recursive calls
+    int x = minCostPath_Mem(input, m, n, i, j+1, output);
+    int y = minCostPath_Mem(input, m, n, i+1, j+1, output);
+    int z = minCostPath_Mem(input, m, n, i+1, j, output);
+    
+    // Small Calculation
+    int a = min(x, min(y, z)) + input[i][j];
+    
+    // Save the answer for future use
+    output[i][j] = a;
+    
+    return a;
+}
+
 
 //Dynamic Programing
 #include <climits>
@@ -153,4 +182,32 @@ int minCostPath(int **input, int m, int n)
 		}
 	}
 	return arr[0][0];
+}
+
+//DP By Tutor
+
+int minCOst_DP(int **input, int m, int n) {
+	int **ans = new int*[m];
+	for(int i = 0; i < m; i++) {
+		ans[i] = new int[n];
+	}
+
+	ans[m-1][n-1] = input[m-1][n-1];
+
+	// Last row
+	for(int j = n - 2; j >= 0; j--) {
+		ans[m-1][j] = input[m-1][j] + ans[m-1][j+1];
+	}
+
+	// Last col
+	for(int i = m-2; i >= 0; i--) {
+		ans[i][n-1] = input[i][n-1] + ans[i+1][n-1];
+	}
+
+	for(int i = m-2; i >= 0; i--) {
+		for(int j = n-2; j >= 0; j--) {
+			ans[i][j] = input[i][j] + min(ans[i][j+1], min(ans[i+1][j+1], ans[i+1][j]));
+		}
+	}
+	return ans[0][0];
 }

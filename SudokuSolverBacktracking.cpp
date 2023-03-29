@@ -94,13 +94,13 @@ bool sudokusolver(int row=0,int col=0){
     }
 
     if(row == 9){
-        /*for(int i=0;i<9;i++){
+        for(int i=0;i<9;i++){
             for(int j=0;j<9;j++){
                 cout<<sudoku[i][j]<<" ";
             }
             cout<<endl;
         }
-        cout<<endl;*/
+        cout<<endl;
         return true;
     }
 
@@ -126,7 +126,7 @@ int main(){
             cin>>sudoku[i][j];
         }
     }
-    //cout<<endl<<endl;
+    cout<<endl<<endl;
     if(sudokusolver()){
         cout<<"true"<<endl;
     }

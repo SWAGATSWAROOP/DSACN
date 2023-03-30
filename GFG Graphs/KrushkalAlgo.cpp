@@ -3,6 +3,13 @@
 #include<queue>
 using namespace std;
 
+int find(int x,int parent[]){
+    if(parent[x] == x)return x;
+    return find(parent[x],parent);
+}
+
+void uni(int x,int y,int parent[]){parent[x] = y;}
+
 class Graph{
     public:
     int x;
@@ -22,23 +29,17 @@ class Graph{
 };
 
 int PrimAlgo(vector<Graph> v,int s,int n){
-    bool visited[n+1];
+    int parent[n];
+    for(int i = 0;i<n;i++)parent[i] = i;
     int sum = 0;
     sort(v.begin(),v.end(),Graph::comp);
-    for(int i = 0;i<n;i++)visited[i] = false;
-    int count = 0;
     for(auto l:v){
-        if(visited[l.x] && visited[l.y])continue;
-        else if(!visited[l.x] && !visited[l.y]){
-            count+=2;
+        int m = find(l.x,parent);
+        int k = find(l.y,parent);
+        if(m!=k){
+            uni(m,k,parent);
             sum += l.z;
         }
-        else{
-            count++;
-            sum += l.z;
-        }
-        visited[l.x] = true;
-        visited[l.y] = true;
     }
     return sum;
 }

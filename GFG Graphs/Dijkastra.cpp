@@ -1,36 +1,39 @@
 #include<iostream>
 #include<vector>
 #include<queue>
+#include<utility>
+#include<climits>
 using namespace std;
 
-class comp{
+class com{
     public:
     bool operator()(pair<int,int> s,pair<int,int> k){
         return s.second>k.second;
     }
 };
 
-int PrimAlgo(vector<pair<int,int> > v[],int s,int n){
-    bool visited[n+1];
-    int sum = 0;
-    pair<int,int> p(s,0);
-    for(int i = 0;i<n;i++)visited[i] = false;
-    priority_queue<pair<int,int>,vector<pair<int,int> >,comp> pq;
-    pq.push(p);
-    int count = 0;
-    while(!pq.empty() && count<n){
-        int k = pq.top().second;
+void DijAlgo(vector<pair<int,int> >v[],int s,int d){
+    vector<bool> ll(d,false);
+    pair<int,int> q(s,0);
+    priority_queue<pair<int,int>,vector<pair<int,int> >,com> pq;
+    pq.push(q);
+    while(!pq.empty()){
         int m = pq.top().first;
+        int k = pq.top().second;
         pq.pop();
-        if(visited[m])continue;
-        count++;
-        cout<<m<<" ";
-        sum += k;
-        visited[m] = true;
-        for(auto x:v[m])if(!visited[x.first])pq.push(x);
+        if(ll[m])continue;
+        ll[m] = true;
+        cout<<m<<"-"<<k<<"  ";
+        for(auto x:v[m]){
+            if(!ll[x.first]){
+                int o = k+x.second;
+                pair<int,int> p(x.first,o);
+                pq.push(p);
+            }
+        }
     }
     cout<<"\n";
-    return sum;
+    return; 
 }
 
 void addedge(vector<pair<int,int> > v[],int s,int d,int f){ // Directed
@@ -57,6 +60,6 @@ int main(){
     }
     cout<<"Enter the starting index:- ";
     cin>>l;
-    cout<<"MST: "<<PrimAlgo(v,l,n)<<endl;
+    DijAlgo(v,l,n);
     return 0;
 }

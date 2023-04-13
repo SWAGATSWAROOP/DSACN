@@ -28,7 +28,7 @@ class Graph{
     }
 };
 
-int PrimAlgo(vector<Graph> v,int s,int n){
+int KruskalAlgo(vector<Graph> v,int s,int n){
     int parent[n];
     for(int i = 0;i<n;i++)parent[i] = i;
     int sum = 0;
@@ -55,6 +55,6 @@ int main(){
         Graph a;
         v.push_back(a);
     }
-    cout<<"MST: "<<PrimAlgo(v,l,n)<<endl;
+    cout<<"MST: "<<KruskalAlgo(v,l,n)<<endl;
     return 0;
 }

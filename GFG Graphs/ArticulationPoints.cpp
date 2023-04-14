@@ -27,14 +27,28 @@ void DFS(vector<int> v[],int n){
     vector<int> low(n,0);
     vector<int> o(n,0);
     int count = 1;
+    cout<<"Enter Choice (1 for starting from any vertex and 0 from starting normally):-";
+    int x;
+    cin>>x;
     cout<<"Articulation Points:- \n";
-    for(int i=0;i<n;i++){
-        int rcount = 0;
-        if(!visited[i]){
-            dfs(v,i,i,visited,dis,low,count,rcount);
-            o[i] = 1;
-            if(rcount > 1)cout<<i<<" ";
+    if(!x){
+        for(int i=0;i<n;i++){
+            int rcount = 0;
+            if(!visited[i]){
+                dfs(v,i,i,visited,dis,low,count,rcount);
+                o[i] = 1;
+                if(rcount > 1)cout<<i<<" ";
+            }
         }
+    }
+    else{
+        cout<<"Enter starting vertex:- ";
+        int i;
+        cin>>i;
+        int rcount = 0;
+        dfs(v,i,i,visited,dis,low,count,rcount);
+        o[i] = 1;
+        if(rcount > 1)cout<<i<<" ";
     }
     for(int i = 0;i<n;i++){
         if(o[i])continue;

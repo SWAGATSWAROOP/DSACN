@@ -49,6 +49,14 @@ void DFS(vector<int> v[],int n){
         dfs(v,i,i,visited,dis,low,count,rcount);
         o[i] = 1;
         if(rcount > 1)cout<<i<<" ";
+        for(int i=0;i<n;i++){
+            rcount = 0;
+            if(!visited[i]){
+                dfs(v,i,i,visited,dis,low,count,rcount);
+                o[i] = 1;
+                if(rcount > 1)cout<<i<<" ";
+            }
+        }
     }
     for(int i = 0;i<n;i++){
         if(o[i])continue;

@@ -6,26 +6,28 @@ void addedge(vector<int> v[],int source,int destination){
     v[destination].push_back(source);
 }
 
-int dfs(vector<int> v[],int index,int parent,vector<bool>& visited,vector<int>& dis,vector<int>& low,int& count,int& rcount){
-    visited[index] = true;
+int dfs(vector<int> v[],int index,int parent,vector<bool> backedge,vector<bool>& visited,vector<int>& dis,vector<int>& low,int& count,int& rcount){
+    backedge[index] = true;
+    visited[index] =true;
     dis[index] =  count++;
     low[index] = dis[index];
     for(auto x:v[index]){
         if(parent == x)continue;
-        if(!visited[x]){
-            low[index] = min(dfs(v,x,index,visited,dis,low,count,rcount),low[index]);
+        else if(!visited[x]){
+            low[index] = min(dfs(v,x,index,backedge,visited,dis,low,count,rcount),low[index]);
             if(parent == index)rcount++;
         }
-        else low[index] = min(low[index],dis[x]);
+        else if(backedge[x])low[index] = min(low[index],dis[x]);
     }
     return low[index];
 }
 
 void DFS(vector<int> v[],int n){
-    vector<bool> visited(n,false);
+    vector<bool> backedge(n,false);
     vector<int> dis(n,0);
     vector<int> low(n,0);
     vector<int> o(n,0);
+    vector<bool> visited(n,false);
     int count = 1;
     cout<<"Enter Choice (1 for starting from any vertex and 0 from starting normally):-";
     int x;
@@ -36,14 +38,14 @@ void DFS(vector<int> v[],int n){
         int i;
         cin>>i;
         int rcount = 0;
-        dfs(v,i,i,visited,dis,low,count,rcount);
+        dfs(v,i,i,backedge,visited,dis,low,count,rcount);
         o[i] = 1;
         if(rcount > 1)cout<<i<<" ";
     }
     for(int i=0;i<n;i++){
         int rcount = 0;
         if(!visited[i]){
-            dfs(v,i,i,visited,dis,low,count,rcount);
+            dfs(v,i,i,backedge,visited,dis,low,count,rcount);
             o[i] = 1;
             if(rcount > 1)cout<<i<<" ";
         }
